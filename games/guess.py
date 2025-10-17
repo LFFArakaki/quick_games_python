@@ -9,10 +9,8 @@ def hard():
         num = random.randint(0, 100)
         guess = int(input("Pick a number between 0 and 100:\n"))
         guesses += 1
-        if guess == num:
+        if win_game(guesses, guess, num):
             correct_answer = True
-            print("Congratulations! You won!")
-            print(f'Took you {guesses} guesses')
         else:
             print("Incorrect! Try again!")
             special_messages(guess, num)
@@ -24,10 +22,8 @@ def medium():
     while not correct_answer:
         guess = int(input("Pick a number between 0 and 100:\n"))
         guesses += 1
-        if guess == num:
+        if win_game(guesses, guess, num):
             correct_answer = True
-            print("Congratulations! You won!")
-            print(f'Took you {guesses} guesses')
         else:
             print("Incorrect! Try again!\n")
 def easy():
@@ -37,16 +33,15 @@ def easy():
     while not correct_answer:
         guess = int(input("Pick a number between 0 and 100:\n"))
         guesses += 1
-        if guess == num:
+        if win_game(guesses, guess, num):
             correct_answer = True
-            print("Congratulations! You won!")
-            print(f'Took you {guesses} guesses')
         else:
             print("Incorrect! Try again!")
             if guess > num:
                 print("The real number is smaller than your guess!\n")
             else:
                 print("The real number is bigger than your guess!\n")
+
 def special_messages(guess, real):
     if guess >= real-1 and guess <= real+1:
         print("So close, yet so far T-T")
@@ -60,6 +55,12 @@ def special_messages(guess, real):
         print("Got half way there, just needed the first digit right")
     elif guess-(guess%10) == real-(real%10) and guess != 100 and guess >= 10 and real >= 10 and real != 100:
         print("Got half way there, just needed the second digit right")
+def win_game(guesses, guess, real):
+    if guess == real:
+        print("Congratulations! You won!")
+        print(f'Took you {guesses} guesses')
+        return True
+    return False
     
 
 easy_mode = Mode("Easy", easy)
